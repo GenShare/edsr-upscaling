@@ -276,6 +276,7 @@ class run:
 
         sess.close()
 
+    # TODO: break out into init and run, run should return raw bytes for delegant to write
     def upscaleFromPb(self, path):
         """
         Upscale single image by desired model. This loads a .pb file.
