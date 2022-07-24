@@ -22,8 +22,9 @@ def load_model_from_pb(scale):
     This loads a .pb file.
     """
     # Read model
-    print("Loading model from edsr-upscaling/models/EDSR_x{}.pb".format(scale))
-    pbPath = "edsr-upscaling/models/EDSR_x{}.pb".format(scale)
+    #print("Loading model from edsr-upscaling/models/EDSR_x{}.pb".format(scale))
+    #pbPath = "edsr-upscaling/models/x{}/saved_model.pb".format(scale)
+    pbPath = "models/x{}/saved_model.pb".format(scale)
 
     # Get model
     model = load_pb(pbPath)
