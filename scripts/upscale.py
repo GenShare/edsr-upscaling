@@ -26,8 +26,8 @@ def load_model_from_pb(scale):
     model = load_pb(pbPath)
     return model
 
-def setup(self):
-    model = load_model_from_pb(self)
+def setup():
+    model = load_model_from_pb()
 
     # TO-DO: utilize GPU runtime
     # device = tf.device("cuda") if tf.cuda.is_available() else tf.device("cpu")
