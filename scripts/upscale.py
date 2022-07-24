@@ -17,7 +17,6 @@ def load_model_from_pb(scale):
     """
     This loads a .pb file.
     """
-    # TODO: load and return all models (2,3,4)
     # Read model
     print("Loading model from edsr-upscaling/models/EDSR_x{}.pb".format(scale))
     pbPath = "edsr-upscaling/models/EDSR_x{}.pb".format(scale)
@@ -27,7 +26,8 @@ def load_model_from_pb(scale):
     return model
 
 def setup():
-    model = load_model_from_pb()
+    # TODO: load and return all models (2,3,4)
+    model = load_model_from_pb(4)
 
     # TO-DO: utilize GPU runtime
     # device = tf.device("cuda") if tf.cuda.is_available() else tf.device("cpu")
@@ -35,14 +35,12 @@ def setup():
 
     return {"model": model}
 
-def run_upscale(raw_img, model):
+def run_upscale(image_path, model):
     mean = [103.1545782, 111.561547, 114.35629928]
 
-    np_arr = np.fromstring(raw_img, np.uint8)
-    img_np = cv2.imdecode(np_arr, cv2.CV_LOAD_IMAGE_COLOR)
     # below line could be redundant
-    # fullimg = cv2.imread(img_np, 3)
-    floatimg = img_np.astype(np.float32) - mean
+    fullimg = cv2.imread(image_path, 3)
+    floatimg = fullimg.astype(np.float32) - mean
     LR_input_ = floatimg.reshape(1, floatimg.shape[0], floatimg.shape[1], 3)
 
     LR_tensor = model.get_tensor_by_name("IteratorGetNext:0")
@@ -62,7 +60,6 @@ def run_upscale(raw_img, model):
 
     sess.close()
     return result
-
 
 def main(opt):
     model  = setup(opt.self)
