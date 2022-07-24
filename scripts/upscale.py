@@ -6,9 +6,13 @@ import cv2
 import numpy as np
 
 def load_pb(path_to_pb):
-    with tf.gfile.GFile(path_to_pb, "rb") as f:
+    '''
+    with tf.io.gfile.GFile(path_to_pb, "rb") as f:
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(f.read())
+    '''
+    graph_def = tf.saved_model.load(path_to_pb)
+
     with tf.Graph().as_default() as graph:
         tf.import_graph_def(graph_def, name='')
         return graph
